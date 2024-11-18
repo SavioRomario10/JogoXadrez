@@ -10,7 +10,8 @@ namespace xadrez_console
         {
             try
             {
-                
+                PartidaDeXadrez partida = new PartidaDeXadrez();
+                Tela.imprimirTabuleiro(partida.tab);
             }
             catch (TabuleiroException e)
             {
