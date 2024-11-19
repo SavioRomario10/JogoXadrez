@@ -14,10 +14,10 @@ namespace tabuleiro
             this.cor = cor;
             this.qtdMovimentos = 0;
         }
-        public void incrementarQtdMovimentos() => qtdMovimentos++;
-        public abstract bool[,] movimentosPossiveis()
+        public void incrementarQtdMovimentos()
         {
-            
-        }
+            qtdMovimentos++;
+        } 
+        public abstract bool[,] movimentosPossiveis();
     }
 }   
