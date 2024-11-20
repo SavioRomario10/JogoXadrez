@@ -5,6 +5,45 @@ namespace xadrez_console
 {
     class Tela
     {
+        public static void imprimirPartida(PartidaDeXadrez partida)
+        {
+            imprimirTabuleiro(partida.tab);
+            Console.WriteLine();
+            imprimirPecasCapturadas(partida);
+            Console.WriteLine("Turno: " + partida.turno);
+            Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
+        }
+        public static void imprimirPecasCapturadas(PartidaDeXadrez partida)
+        {
+            Console.WriteLine("Pecas capturadas: ");
+            Console.Write("Brancas: ");
+            imprimirCorBranca(partida);
+            Console.WriteLine();
+            Console.Write("Pretas: ");
+            imprimirCorPreta(partida);
+            Console.WriteLine();
+        }
+
+        public static void imprimirCorPreta(PartidaDeXadrez partida)
+        {
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            imprimirConjunto(partida.pecasCapturadas(Cor.Preta));
+            Console.ForegroundColor = aux;
+        }
+        public static void imprimirCorBranca(PartidaDeXadrez partida)
+        {
+            imprimirConjunto(partida.pecasCapturadas(Cor.Branca));
+        }
+        public static void imprimirConjunto(HashSet<Peca> conjunto)
+        {
+            Console.Write("[");
+            foreach (Peca x in conjunto)
+            {
+                Console.Write(x + " ");
+            }
+            Console.WriteLine("]");
+        }
         public static void imprimirTabuleiro(Tabuleiro tab)
         {
             for (int i = 0; i < tab.linhas; i++)
@@ -71,8 +110,11 @@ namespace xadrez_console
         public static PosicaoXadrez lerPosicaoXadrez()
         {
             string s = Console.ReadLine();
+            if(s.Length < 2) throw new TabuleiroException("Erro ao ler a posição!");
             char coluna = s[0];
             int linha = int.Parse(s[1] + "");
+            PartidaDeXadrez.validaEntrada(coluna);
+            PartidaDeXadrez.validaEntrada(linha);
             
             return new PosicaoXadrez(coluna, linha);
         }
