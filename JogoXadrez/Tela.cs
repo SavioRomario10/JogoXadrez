@@ -1,3 +1,4 @@
+using System.Data;
 using tabuleiro;
 using xadrez;
 
@@ -61,14 +62,30 @@ namespace xadrez_console
     {
       for (int i = 0; i < tab.linhas; i++)
       {
-        Console.Write(8 - i + " ");
+        int aux = 8 - i;
+        bordas(aux);
         for (int j = 0; j < tab.colunas; j++)
         {
           imprimirPeca(tab.peca(i, j));
         }
         Console.WriteLine();
       }
-      Console.Write("  a b c d e f g h");
+      bordas(0);
+      Console.WriteLine();
+    }
+    public static void bordas(int border)
+    {
+      ConsoleColor aux = Console.ForegroundColor;
+      Console.ForegroundColor = ConsoleColor.DarkRed;
+      if(border > 0)
+      {
+        Console.Write(border + " ");
+      }
+      if(border == 0)
+      {
+        Console.Write("  a b c d e f g h");
+      }
+      Console.ForegroundColor = aux;
     }
     public static void imprimirTabuleiro(Tabuleiro tab, bool[,] posicoesPossiveis)
     {
@@ -77,7 +94,8 @@ namespace xadrez_console
 
       for (int i = 0; i < tab.linhas; i++)
       {
-        Console.Write(8 - i + " ");
+        int aux = 8 - i;
+        bordas(aux);
         for (int j = 0; j < tab.colunas; j++)
         {
           if (posicoesPossiveis[i,j] )
@@ -94,7 +112,8 @@ namespace xadrez_console
         }
         Console.WriteLine();
       }
-      Console.WriteLine("  a b c d e f g h");
+      bordas(0);
+      Console.WriteLine();
 
       Console.BackgroundColor = fundoOriginal;
     }
